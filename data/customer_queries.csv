@@ -1,0 +1,51 @@
+id,query,language,market,gold_intent,model_intent,confidence,issue_type,notes
+1,"Where can I track my package?",English,UK,order_tracking,order_tracking,0.98,correct,Explicit tracking request
+2,"Can you send me the tracking link?",English,US,order_tracking,order_tracking,0.97,correct,Explicit tracking request
+3,"I want to know where my parcel is now.",English,DE,order_tracking,order_tracking,0.95,correct,Location/status request
+4,"Has my order shipped yet?",English,US,order_tracking,order_tracking,0.89,correct,Shipment status
+5,"My package was supposed to arrive yesterday.",English,UK,delivery_delay,order_tracking,0.61,boundary_confusion,Temporal overdue signal
+6,"It is three days late. Where is my parcel?",English,US,delivery_delay,order_tracking,0.58,boundary_confusion,Delay + tracking wording
+7,"My delivery is overdue.",English,AU,delivery_delay,delivery_delay,0.96,correct,Explicit delay
+8,"The estimated delivery date has passed.",English,DE,delivery_delay,delivery_delay,0.95,correct,Past ETA
+9,"Why is my package taking so long?",English,CA,delivery_delay,delivery_delay,0.91,correct,Delay complaint
+10,"My order still has not arrived.",English,US,delivery_delay,delivery_delay,0.92,correct,Non-arrival
+11,"Can I change the delivery address?",English,UK,address_change,address_change,0.99,correct,Explicit address change
+12,"I entered the wrong address.",English,US,address_change,address_change,0.98,correct,Wrong address
+13,"Please ship it to a different address.",English,DE,address_change,address_change,0.97,correct,Address modification
+14,"I need to update where this order will be delivered.",English,AU,address_change,address_change,0.94,correct,Delivery destination change
+15,"Can I cancel my order before it ships?",English,US,order_cancellation,order_cancellation,0.99,correct,Explicit cancellation
+16,"Please stop this order.",English,UK,order_cancellation,order_cancellation,0.96,correct,Explicit cancellation
+17,"I changed my mind and want to cancel.",English,DE,order_cancellation,order_cancellation,0.98,correct,Cancellation intent
+18,"Can this order be cancelled?",English,CA,order_cancellation,order_cancellation,0.97,correct,Cancellation question
+19,"When will my refund arrive?",English,US,refund_status,refund_status,0.99,correct,Refund timing
+20,"I was told I would get a refund but I haven't received it.",English,UK,refund_status,refund_status,0.94,correct,Missing refund
+21,"Has my refund been processed?",English,DE,refund_status,refund_status,0.96,correct,Refund status
+22,"Where is the money from my refund?",English,AU,refund_status,return_request,0.55,confusion,Refund vs return
+23,"I want to return this item.",English,US,return_request,return_request,0.99,correct,Explicit return
+24,"How do I send the product back?",English,UK,return_request,return_request,0.98,correct,Return procedure
+25,"Can I return an item I bought yesterday?",English,DE,return_request,return_request,0.96,correct,Return eligibility
+26,"I need a return label.",English,CA,return_request,return_request,0.97,correct,Return process
+27,"My card was declined when I paid.",English,US,payment_failed,payment_failed,0.99,correct,Payment failure
+28,"Payment did not go through.",English,UK,payment_failed,payment_failed,0.98,correct,Payment failure
+29,"Why can't I complete checkout?",English,DE,payment_failed,payment_failed,0.86,correct,Checkout/payment issue
+30,"The payment keeps failing.",English,AU,payment_failed,payment_failed,0.98,correct,Repeated failure
+31,"I was charged twice for the same order.",English,US,duplicate_charge,duplicate_charge,0.99,correct,Double charge
+32,"Why do I see two charges?",English,UK,duplicate_charge,duplicate_charge,0.97,correct,Double charge
+33,"My card has been charged two times.",English,DE,duplicate_charge,duplicate_charge,0.98,correct,Double charge
+34,"I think I paid twice.",English,CA,duplicate_charge,payment_failed,0.52,confusion,Payment problem vs duplicate charge
+35,"You sent me the wrong item.",English,US,wrong_item,wrong_item,0.99,correct,Wrong product
+36,"I received a different product from what I ordered.",English,UK,wrong_item,wrong_item,0.98,correct,Wrong product
+37,"The item in the box is not mine.",English,DE,wrong_item,wrong_item,0.93,correct,Wrong product
+38,"My order is incorrect.",English,AU,wrong_item,order_cancellation,0.49,confusion,Insufficient product-specific signal
+39,"The product arrived damaged.",English,US,damaged_item,damaged_item,0.99,correct,Damage
+40,"The box was broken and the item is damaged.",English,UK,damaged_item,damaged_item,0.98,correct,Damage
+41,"My item arrived cracked.",English,DE,damaged_item,damaged_item,0.97,correct,Damage
+42,"It was damaged during delivery.",English,CA,damaged_item,damaged_item,0.95,correct,Damage
+43,"Where is my package? It should have arrived yesterday.",English,US,delivery_delay,order_tracking,0.56,boundary_confusion,Tracking wording + overdue signal
+44,"Track my order—it is already late.",English,UK,delivery_delay,order_tracking,0.57,boundary_confusion,Tracking verb + delay signal
+45,"I need the status of a refund for the item I returned.",English,DE,refund_status,return_request,0.60,boundary_confusion,Refund status after return
+46,"I returned it last week. When will I get my money back?",English,US,refund_status,return_request,0.59,boundary_confusion,Refund timing after return
+47,"I cannot update the address because checkout is complete.",English,UK,address_change,order_cancellation,0.51,confusion,Address change context missed
+48,"Can I cancel after the order was shipped?",English,DE,order_cancellation,delivery_delay,0.53,confusion,Cancellation should dominate delivery state
+49,"The payment failed, but I can see a pending charge.",English,US,payment_failed,duplicate_charge,0.54,confusion,Failure with pending authorization
+50,"I received the item, but it is the wrong size.",English,UK,wrong_item,return_request,0.62,confusion,Wrong-item taxonomy needs size case
