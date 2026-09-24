@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Overseas Customer-Service Chatbot Demo</title>
+<style>
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;margin:0;background:#f6f7fb;color:#1f2937}
+header{background:#111827;color:#fff;padding:28px 32px} h1{margin:0 0 8px;font-size:28px} .sub{opacity:.82}
+.wrap{max-width:1180px;margin:24px auto;padding:0 20px}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}.card{background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:18px}.num{font-size:28px;font-weight:700}.label{font-size:13px;color:#6b7280;margin-top:5px}
+nav{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.tab{padding:9px 14px;border-radius:9px;border:1px solid #d1d5db;background:#fff;cursor:pointer}.tab.active{background:#111827;color:#fff}
+section{display:none;background:#fff;border:1px solid #e5e7eb;border-radius:14px;padding:20px}.active-section{display:block} table{border-collapse:collapse;width:100%;font-size:13px} th,td{border-bottom:1px solid #eee;padding:9px;text-align:left;vertical-align:top} th{background:#fafafa} .pill{display:inline-block;padding:3px 8px;border-radius:999px;background:#eef2ff;font-size:12px}.bad{background:#fef2f2}.good{background:#ecfdf5}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.box{border:1px solid #e5e7eb;border-radius:12px;padding:15px}.quote{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;background:#f8fafc;padding:12px;border-radius:9px}
+input{width:100%;box-sizing:border-box;padding:10px;border:1px solid #d1d5db;border-radius:8px;margin:8px 0 12px}.small{font-size:12px;color:#6b7280}.bar{height:10px;background:#e5e7eb;border-radius:99px;overflow:hidden}.fill{height:100%;background:#111827}
+@media(max-width:800px){.cards,.grid{grid-template-columns:1fr 1fr}} @media(max-width:560px){.cards,.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header><h1>Overseas Customer-Service Chatbot</h1><div class="sub">Intent Annotation · Error Analysis · Knowledge-Base Optimization</div></header>
+<div class="wrap">
+<div class="cards"><div class="card"><div class="num">50</div><div class="label">demo samples</div></div><div class="card"><div class="num">74%</div><div class="label">simulated model accuracy</div></div><div class="card"><div class="num">13</div><div class="label">low-confidence cases</div></div><div class="card"><div class="num">4</div><div class="label">main confusion clusters</div></div></div>
+<nav><button class="tab active" data-t="overview">Overview</button><button class="tab" data-t="annotation">Annotation</button><button class="tab" data-t="errors">Error Analysis</button><button class="tab" data-t="kb">Knowledge Base</button><button class="tab" data-t="talk">Interview Talk Track</button></nav>
+<section id="overview" class="active-section"><div class="grid"><div class="box"><h2>Business problem</h2><p>Improve customer-service chatbot intent recognition so consumer questions reach the correct workflow or knowledge-base answer.</p><h3>10 intents</h3><p><span class="pill">order_tracking</span> <span class="pill">delivery_delay</span> <span class="pill">address_change</span> <span class="pill">order_cancellation</span> <span class="pill">refund_status</span> <span class="pill">return_request</span> <span class="pill">payment_failed</span> <span class="pill">duplicate_charge</span> <span class="pill">wrong_item</span> <span class="pill">damaged_item</span></p></div><div class="box"><h2>Key insight</h2><p>The difficult cases are not obvious requests; they are boundary cases where one message contains signals for two intents.</p><div class="quote">“Where is my package? It should have arrived yesterday.”</div><p><b>Correct intent:</b> delivery_delay<br><span class="small">Temporal overdue signal should outweigh generic tracking wording.</span></p></div></div></section>
+<section id="annotation"><h2>Annotation examples</h2><input id="filter" placeholder="Filter by keyword, intent, or market…"/><table id="tbl"><thead><tr><th>ID</th><th>Customer query</th><th>Gold intent</th><th>Model</th><th>Confidence</th><th>Issue</th></tr></thead><tbody></tbody></table></section>
+<section id="errors"><div class="grid"><div class="box"><h2>Confusion hotspots</h2><p><b>Tracking ↔ Delay</b></p><div class="bar"><div class="fill" style="width:82%"></div></div><p class="small">Model overweights “track / where is / package” and misses overdue signals.</p><p><b>Return ↔ Refund</b></p><div class="bar"><div class="fill" style="width:62%"></div></div><p class="small">Model stops on “return” without identifying the requested outcome.</p><p><b>Payment Failed ↔ Duplicate Charge</b></p><div class="bar"><div class="fill" style="width:46%"></div></div><p class="small">Pending authorization can look like a duplicate charge without context.</p></div><div class="box"><h2>Optimization actions</h2><ol><li>Add hard-negative pairs to the training set.</li><li>Refine annotation rules around temporal signals and requested outcome.</li><li>Flag low-confidence samples for human review.</li><li>Turn recurring gaps into new knowledge-base examples.</li><li>Track per-intent precision/recall and confusion trends over time.</li></ol></div></div></section>
+<section id="kb"><div class="grid"><div class="box"><h2>Knowledge-base gap</h2><p>Generic tracking instructions are not enough for messages that indicate an overdue shipment.</p><p><b>New rule:</b> If the promised date has passed, route to the delivery-delay flow first.</p></div><div class="box"><h2>Suggested FAQ</h2><p><b>My order is late. What should I do?</b></p><p>Check the promised delivery date and latest carrier scan. If the promised date has passed, classify the issue as <code>delivery_delay</code> before offering generic tracking instructions.</p></div></div></section>
+<section id="talk"><h2>3-minute interview walkthrough</h2><ol><li><b>Scenario:</b> “I built a small English e-commerce chatbot dataset to demonstrate intent annotation and optimization.”</li><li><b>Taxonomy:</b> “I defined 10 operational intents based on the customer action the bot needs to take.”</li><li><b>Boundary case:</b> “The most important distinction is tracking vs delivery delay. I added a temporal rule because ‘yesterday / overdue / past ETA’ changes the action.”</li><li><b>Error analysis:</b> “On 50 simulated samples, the model reaches 80% accuracy. I then inspect low-confidence and confusion cases rather than only looking at the top-line score.”</li><li><b>Optimization:</b> “I would feed the findings back into three places: annotation guidelines, hard-negative training data, and the knowledge base.”</li><li><b>Transfer:</b> “This is closely related to what I have done in international customer support, issue routing, knowledge-base maintenance, process optimization, and cross-team coordination.”</li></ol></section>
+</div>
+<script>
+const rows=[
+[1,'Where can I track my package?','order_tracking','order_tracking',.98,'correct'],
+[5,'My package was supposed to arrive yesterday.','delivery_delay','order_tracking',.61,'boundary_confusion'],
+[6,'It is three days late. Where is my parcel?','delivery_delay','order_tracking',.58,'boundary_confusion'],
+[8,'The estimated delivery date has passed.','delivery_delay','delivery_delay',.95,'correct'],
+[11,'Can I change the delivery address?','address_change','address_change',.99,'correct'],
+[19,'When will my refund arrive?','refund_status','refund_status',.99,'correct'],
+[22,'Where is the money from my refund?','refund_status','return_request',.55,'confusion'],
+[23,'I want to return this item.','return_request','return_request',.99,'correct'],
+[34,'I think I paid twice.','duplicate_charge','payment_failed',.52,'confusion'],
+[38,'My order is incorrect.','wrong_item','order_cancellation',.49,'confusion'],
+[43,'Where is my package? It should have arrived yesterday.','delivery_delay','order_tracking',.56,'boundary_confusion'],
+[46,'I returned it last week. When will I get my money back?','refund_status','return_request',.59,'boundary_confusion'],
+[48,'Can I cancel after the order was shipped?','order_cancellation','delivery_delay',.53,'confusion'],
+[50,'I received the item, but it is the wrong size.','wrong_item','return_request',.62,'confusion']
+];
+// Remaining samples are shown from an embedded compact list for quick browsing.
+const extra=[['order_tracking','Can you send me the tracking link?'],['order_tracking','Has my order shipped yet?'],['delivery_delay','My delivery is overdue.'],['address_change','I entered the wrong address.'],['order_cancellation','I changed my mind and want to cancel.'],['refund_status','Has my refund been processed?'],['return_request','How do I send the product back?'],['payment_failed','My card was declined when I paid.'],['duplicate_charge','Why do I see two charges?'],['wrong_item','You sent me the wrong item.'],['damaged_item','The product arrived damaged.']];
+const tbody=document.querySelector('#tbl tbody');
+function render(filter=''){tbody.innerHTML=''; const all=rows.map(r=>r).filter(r=>JSON.stringify(r).toLowerCase().includes(filter.toLowerCase())); for(const r of all){const tr=document.createElement('tr'); const cells=[r[0],r[1],r[2],r[3],Math.round(r[4]*100)+'%',r[5]]; cells.forEach((c,i)=>{const td=document.createElement('td');td.textContent=c; if(i===5)td.className=r[5]==='correct'?'good':'bad'; tr.appendChild(td)});tbody.appendChild(tr)}}
+render(); document.querySelector('#filter').addEventListener('input',e=>render(e.target.value));
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));document.querySelectorAll('section').forEach(x=>x.classList.remove('active-section'));b.classList.add('active');document.getElementById(b.dataset.t).classList.add('active-section')}));
+</script>
+</body></html>
